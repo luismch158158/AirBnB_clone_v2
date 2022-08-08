@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 """ Console Module """
 import cmd
+from contextlib import AsyncExitStack
 import sys
+import re
 from models.base_model import BaseModel
 from models.__init__ import storage
 from models.user import User
@@ -10,6 +12,7 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
+import json
 
 
 class HBNBCommand(cmd.Cmd):
@@ -73,7 +76,7 @@ class HBNBCommand(cmd.Cmd):
                 pline = pline[2].strip()  # pline is now str
                 if pline:
                     # check for *args or **kwargs
-                    if pline[0] is '{' and pline[-1] is'}'\
+                    if pline[0] == '{' and pline[-1] == '}'\
                             and type(eval(pline)) is dict:
                         _args = pline
                     else:
@@ -113,18 +116,99 @@ class HBNBCommand(cmd.Cmd):
         """ Overrides the emptyline method of CMD """
         pass
 
+    def regex_arguments(self, test):
+        """Validate arguments passed for console with regex"""
+        searcher = r"^([a-zA-Z_]\w*)=(\".+\"|\d+|-?[0-9]+\.[0-9]+|\[.*\])$"
+        obj = re.search(searcher, test)
+
+        if (obj is not None):
+            obj = list(obj.groups())
+            # print(obj)
+
+            if (re.search(r"^\".+\"$", obj[1]) is not None):
+                obj[1] = obj[1][1:-1]
+
+                length = len(obj[1])
+
+                if ('"' in obj[1]):
+                    for i in range(length):
+                        if (length == 1 and obj[1][0] == '"'):
+                            return (None)
+                        if (obj[1][i] == '"' and obj[1][i - 1] != '\\'):
+                            return (None)
+
+                obj[1] = obj[1].replace("_", " ")
+                obj[1] = obj[1].replace('\\"', '"')
+            elif (re.search(r"[0-9]+\.[0-9]+", obj[1]) is not None):
+                obj[1] = float(obj[1])
+            elif (obj[1].isnumeric()):
+                obj[1] = int(obj[1])
+            elif (re.search(r"^\[.*\]$", obj[1]) is not None):
+                obj[1] = json.loads(obj[1])
+
+        return (obj)
+
+    def splitter(self, string):
+        """This method split the string with brackets"""
+        final_list = []
+        flag = 1
+        tmp = ""
+        for char in string:
+            if (char == "["):
+                flag = 0
+            if (char == "]"):
+                flag = 1
+            if (char == " " and flag):
+                final_list.append(tmp)
+                tmp = ""
+                continue
+            tmp += char
+
+        if (tmp != ""):
+            final_list.append(tmp)
+
+        return (final_list)
+
     def do_create(self, args):
         """ Create an object of any class"""
         if not args:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+
+        arguments = self.splitter(args)
+
+        len_arguments = len(arguments)
+
+        if arguments[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
+
+        valid_params = []
+
+        for key_value in range(1, len_arguments):
+            regex_res = self.regex_arguments(arguments[key_value])
+
+            if (regex_res is None):
+                print("Format wrong")
+                continue
+
+            if (not hasattr(self.classes[arguments[0]], regex_res[0])):
+                print("attributte doesn't exist in the class")
+                continue
+
+            if (isinstance(type(self.classes[arguments[0]].__dict__
+                           [regex_res[0]]), type(regex_res[1]))):
+                print("type of attributte is incorrect")
+                continue
+            valid_params.append(regex_res)
+
+        new_instance = self.classes[arguments[0]]()
+        for savings in valid_params:
+            first = savings[0]
+            second = savings[1]
+            setattr(new_instance, first, second)
         storage.save()
         print(new_instance.id)
-        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
@@ -272,7 +356,7 @@ class HBNBCommand(cmd.Cmd):
                 args.append(v)
         else:  # isolate args
             args = args[2]
-            if args and args[0] is '\"':  # check for quoted arg
+            if args and args[0] == '\"':  # check for quoted arg
                 second_quote = args.find('\"', 1)
                 att_name = args[1:second_quote]
                 args = args[second_quote + 1:]
@@ -280,10 +364,10 @@ class HBNBCommand(cmd.Cmd):
             args = args.partition(' ')
 
             # if att_name was not quoted arg
-            if not att_name and args[0] is not ' ':
+            if not att_name and args[0] != ' ':
                 att_name = args[0]
             # check for quoted val arg
-            if args[2] and args[2][0] is '\"':
+            if args[2] and args[2][0] == '\"':
                 att_val = args[2][1:args[2].find('\"', 1)]
 
             # if att_val was not quoted arg
@@ -319,6 +403,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
