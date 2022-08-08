@@ -189,16 +189,16 @@ class HBNBCommand(cmd.Cmd):
             regex_res = self.regex_arguments(arguments[key_value])
 
             if (regex_res is None):
-                print("Format wrong")
+                # print("Format wrong")
                 continue
 
             if (not hasattr(self.classes[arguments[0]], regex_res[0])):
-                print("attributte doesn't exist in the class")
+                # print("attributte doesn't exist in the class")
                 continue
 
             if (isinstance(type(self.classes[arguments[0]].__dict__
                            [regex_res[0]]), type(regex_res[1]))):
-                print("type of attributte is incorrect")
+                # print("type of attributte is incorrect")
                 continue
             valid_params.append(regex_res)
 
