@@ -196,7 +196,7 @@ class HBNBCommand(cmd.Cmd):
                 # print("attributte doesn't exist in the class")
                 continue
 
-            if (isinstance(type(self.classes[arguments[0]].__dict__
+            if (not isinstance(type(self.classes[arguments[0]].__dict__
                            [regex_res[0]]), type(regex_res[1]))):
                 # print("type of attributte is incorrect")
                 continue
