@@ -118,7 +118,7 @@ class HBNBCommand(cmd.Cmd):
 
     def regex_arguments(self, test):
         """Validate arguments passed for console with regex"""
-        searcher = r"^([a-zA-Z_]\w*)=(\".+\"|\d+|-?[0-9]+\.[0-9]+|\[.*\])$"
+        searcher = r"^([a-zA-Z_]\w*)=(\".+\"|-?\d+|-?[0-9]+\.[0-9]+|\[.*\])$"
         obj = re.search(searcher, test)
 
         if (obj is not None):
@@ -141,7 +141,7 @@ class HBNBCommand(cmd.Cmd):
                 obj[1] = obj[1].replace('\\"', '"')
             elif (re.search(r"[0-9]+\.[0-9]+", obj[1]) is not None):
                 obj[1] = float(obj[1])
-            elif (obj[1].isnumeric()):
+            elif (re.search(r'-?[0-9]', obj[1])):
                 obj[1] = int(obj[1])
             elif (re.search(r"^\[.*\]$", obj[1]) is not None):
                 obj[1] = json.loads(obj[1])
