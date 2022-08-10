@@ -11,8 +11,8 @@ from models.state import State
 from models.review import Review
 from models.amenity import Amenity
 
-classes = {"Amenity": Amenity, "City": City,
-           "Place": Place, "Review": Review, "State": State, "User": User}
+classes = {"User": User, "State": State, "City": City, "Amenity": Amenity,
+           "Place": Place, "Review": Review}
 
 
 class DBStorage:
@@ -37,9 +37,13 @@ class DBStorage:
         """query on the current database session"""
         final_dict = {}
         if (cls is None):
-            result = self.__session.query(State, City).all()
-            print("Lo haremos mas tarde")
-
+            for v in classes.values():
+                result = self.__session.query(v).all()
+                for row in result:
+                    key_dict = row.__class__.__name__ + '.' + row.id
+                    if "_sa_instance_state" in row.__dict__:
+                        del row.__dict__["_sa_instance_state"]
+                    final_dict[key_dict] = row
         else:
             result = self.__session.query(cls).all()
             for row in result:
