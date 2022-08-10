@@ -25,7 +25,6 @@ class test_basemodel(unittest.TestCase):
         """Remove storage file at end of tests"""
         if (os.path.exists('file.json')):
             os.remove('file.json')
-        
 
     def test_default(self):
         """ """
