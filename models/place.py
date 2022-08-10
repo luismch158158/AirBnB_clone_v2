@@ -33,6 +33,7 @@ class Place(BaseModel, Base):
         # amenity_ids = Column()
         reviews = relationship("Review", backref="place", cascade="all")
         amenities = relationship("Amenity", secondary=place_amenity,
+                                 backref="place_amenities",
                                  viewonly=False)
     else:
         city_id = ""
