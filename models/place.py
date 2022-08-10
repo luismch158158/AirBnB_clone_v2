@@ -64,19 +64,28 @@ class Place(BaseModel, Base):
             new_list = []
             amenities_all = models.storage.all(Amenity)
             for value in amenities_all.values():
-                for i in range(len(self.amenity_ids)):
-                    if (value.id == self.amenity_ids[i].id):
-                        new_list.append(value)
+                if (value.place_id == self.id):
+                    new_list.append(value)
             return new_list
 
-        @amenities.setter
-        def amenities(self, obj=None):
-            """"""
-            if (obj is not None):
-                cls_name = obj.__class__.__name__
-                if (cls_name == 'Amenity' and obj.id not in self.amenity_ids):
-                    self.amenity_ids.append(obj)
+            # new_list = []
+            # amenities_all = models.storage.all(Amenity)
+            # for value in amenities_all.values():
+            #     for i in range(len(self.amenity_ids)):
+            #         if (value.id == self.amenity_ids[i].id):
+            #             new_list.append(value)
+            # return new_list
 
-        def append(self, obj=None):
-            """"""
-            self.amenities = obj
+        # @amenities.setter
+        # def amenities(self, obj=None):
+        #     """"""
+            
+
+        #     if (obj is not None):
+        #         cls_name = obj.__class__.__name__
+        #         if (cls_name == 'Amenity' and obj.id not in self.amenity_ids):
+        #             self.amenity_ids.append(obj)
+
+        # def append(self, obj=None):
+        #     """"""
+        #     self.amenities = obj
