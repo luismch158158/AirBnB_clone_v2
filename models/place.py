@@ -74,8 +74,6 @@ class Place(BaseModel, Base):
             """"""
             if (obj is not None and obj.__class__.__name__ == 'Amenity'):
                 self.amenity_ids.append(obj)
-            else:
-                print('No se puede setear algo que no sea un Amenity')
 
         def append(self, obj=None):
             """"""
