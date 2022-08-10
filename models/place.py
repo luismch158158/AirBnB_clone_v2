@@ -72,8 +72,10 @@ class Place(BaseModel, Base):
         @amenities.setter
         def amenities(self, obj=None):
             """"""
-            if (obj is not None and obj.__class__.__name__ == 'Amenity'):
-                self.amenity_ids.append(obj)
+            if (obj is not None):
+                cls_name = obj.__class__.__name__
+                if (cls_name == 'Amenity' and obj.id not in self.amenity_ids):
+                    self.amenity_ids.append(obj)
 
         def append(self, obj=None):
             """"""
