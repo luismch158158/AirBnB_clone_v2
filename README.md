@@ -126,7 +126,7 @@ Usage: create <class_name>
 ```
 (hbnb) create BaseModel
 3aa5babc-efb6-4041-bfe9-3cc9727588f8
-(hbnb)                   
+(hbnb)
 ```
 ###### Example 1: Show an object
 Usage: show <class_name> <_id>
@@ -191,7 +191,6 @@ Usage: <class_name>.update(<_id>, <dictionary>)
 
 ## AUTHORS
 ---
-- Christian Varas<img alt="GitHub" width="26px" src="https://raw.githubusercontent.com/github/explore/78df643247d429f6cc873026c0622819ad797942/topics/github/github.png" />[GitHub](https://github.com/ChristianVaras)
+- Christian Varas | <img alt="GitHub" width="26px" src="https://raw.githubusercontent.com/github/explore/78df643247d429f6cc873026c0622819ad797942/topics/github/github.png" />[GitHub](https://github.com/ChristianVaras)
 
-- Luis Manrique<img alt="GitHub" width="26px" src="https://raw.githubusercontent.com/github/explore/78df643247d429f6cc873026c06228\
-19ad797942/topics/github/github.png" />[GitHub](https://github.com/luismch158158)
+- Luis Manrique |   <img alt="GitHub" width="26px" src="https://raw.githubusercontent.com/github/explore/78df643247d429f6cc873026c0622819ad797942/topics/github/github.png" /> [GitHub](https://github.com/luismch158158)
