@@ -135,7 +135,7 @@ Usage: show <class_name> <_id>
 (hbnb) show BaseModel 3aa5babc-efb6-4041-bfe9-3cc9727588f8
 [BaseModel] (3aa5babc-efb6-4041-bfe9-3cc9727588f8) {'id': '3aa5babc-efb6-4041-bfe9-3cc9727588f8', 'created_at': datetime.datetime(2020, 2, 18, 14, 21, 12, 96959), 
 'updated_at': datetime.datetime(2020, 2, 18, 14, 21, 12, 96971)}
-(hbnb)  
+(hbnb)
 ```
 ###### Example 2: Destroy an object
 Usage: destroy <class_name> <_id>
@@ -143,7 +143,7 @@ Usage: destroy <class_name> <_id>
 (hbnb) destroy BaseModel 3aa5babc-efb6-4041-bfe9-3cc9727588f8
 (hbnb) show BaseModel 3aa5babc-efb6-4041-bfe9-3cc9727588f8
 ** no instance found **
-(hbnb)   
+(hbnb)
 ```
 ###### Example 3: Update an object
 Usage: update <class_name> <_id>
@@ -191,6 +191,7 @@ Usage: <class_name>.update(<_id>, <dictionary>)
 
 ## AUTHORS
 ---
-- Christian Varas
+- Christian Varas<img alt="GitHub" width="26px" src="https://raw.githubusercontent.com/github/explore/78df643247d429f6cc873026c0622819ad797942/topics/github/github.png" />[GitHub](https://github.com/ChristianVaras)
 
-- Luis Manrique
+- Luis Manrique<img alt="GitHub" width="26px" src="https://raw.githubusercontent.com/github/explore/78df643247d429f6cc873026c06228\
+19ad797942/topics/github/github.png" />[GitHub](https://github.com/luismch158158)
