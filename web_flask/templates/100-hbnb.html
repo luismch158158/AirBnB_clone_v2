@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../static/styles/4-common.css">
+        <link rel="stylesheet" href="../static/styles/3-header.css">
+        <link rel="stylesheet" href="../static/styles/3-footer.css">
+        <link rel="stylesheet" href="../static/styles/6-filters.css">
+        <link rel="stylesheet" href="../static/styles/8-places.css">
+        <link rel="icon" href="images/icon.png">
+        <title>AirBnB clone</title>
+    </head>
+    <body>
+        <header>
+            <div class="logo"></div>
+        </header>
+        <div class="container">
+
+            <section class="filters">
+                <div class="locations">
+                    <h3>States</h3>
+                    <h4>&nbsp;</h4>
+                    <ul class="popover">
+                        {% for state in states %}
+                        <li class="wrapper">
+                            <h2>{{ state.name }}</h2>
+                            <ul>
+                            {% for city in state.cities %}
+                            <li><h4>{{ city.name }}</h4></li>
+                            {% endfor %}
+                            </ul>
+                        </li class="wrapper">
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="amenities">
+                    <h3>Amenities</h3>
+                    <h4>&nbsp</h4>
+                    <ul class="popover">
+                        {% for amenity in amenities %}
+                        <li><h4>{{ amenity.name }}</h4></li>
+                        {% endfor %}
+					</ul>
+                </div>
+                <button>Search</button>
+            </section>
+
+            <section class="places">
+                <h1>Places</h1>
+                {% for place in places %}
+                <article>
+                    <h2>{{ place.name }}</h2>
+                    <div class="price_by_night">
+                        ${{ place.price_by_night }}
+                    </div>
+
+                    <div class="information">
+                        <div class="max_guest">
+                            <span></span>
+                            <p>{{ place.max_guest }} Guests</p>
+                        </div>
+                        <div class="number_rooms">
+                            <span></span>
+                            <p>{{ place.number_rooms }} Bedroom</p>
+                        </div>
+                         <div class="number_bathrooms">
+                            <span></span>
+                            <p>{{ place.number_bathrooms }} Bathroom</p>
+                        </div>
+                    </div>
+                    <div class="user"><b>Owner</b>: {{ users['User.' + place.user_id].first_name + " " + users['User.' + place.user_id].last_name }}</div>
+                    <div class="description">{{ place.description|safe }}
+                    </div>
+                </article>
+                {% endfor %}
+            </section>
+
+
+        </div>
+        <footer>
+            Best School
+        </footer>
+    </body>
+</html>
