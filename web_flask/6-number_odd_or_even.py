@@ -21,7 +21,7 @@ def hello_HBNB():
 def variable_text(text):
     """Return text variable"""
     new_text = text.replace('_', ' ')
-    return f'C {escape(new_text)}'
+    return ('C {:s}'.format(escape(new_text)))
 
 
 @app.route("/python/<string:text>", strict_slashes=False)
@@ -29,13 +29,13 @@ def variable_text(text):
 def variable_text_default(text="is cool"):
     """Return text variable with default"""
     new_text = text.replace('_', ' ')
-    return f'Python {escape(new_text)}'
+    return ('Python {:s}'.format(escape(new_text)))
 
 
 @app.route("/number/<int:n>", strict_slashes=False)
 def number_int(n):
     """Return number"""
-    return f'{escape(n)} is a number'
+    return ('{} is a number'.format(escape(n)))
 
 
 @app.route("/number_template/<int:n>", strict_slashes=False)
