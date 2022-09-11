@@ -11,8 +11,8 @@ class City(BaseModel, Base):
 
     if storage_type == 'db':
         __tablename__ = "cities"
-        state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
         name = Column(String(128), nullable=False)
+        state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
         places = relationship("Place", backref="cities")
     else:
         state_id = ""
