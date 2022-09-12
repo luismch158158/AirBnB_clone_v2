@@ -55,7 +55,7 @@ class BaseModel:
         items = self.__dict__.items()
         string = '_sa_instance_state'
         filter_dict = {k: v for k, v in items if (k != string)}
-        return (f"[{self.__class__.__name__}] ({self.id}) {filter_dict}")
+        return ("[{}] ({}) {}".format(self.__class__.__name__, self.id, filter_dict))
 
     def save(self):
         """Updates updated_at with current time when instance is changed"""

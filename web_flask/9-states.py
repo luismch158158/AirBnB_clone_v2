@@ -20,7 +20,7 @@ def cities_states(id=''):
         values = list(storage.all(State).values())
         return (render_template('/9-states.html', states=values, exist=exist, id=escaped_id))
     else:
-        values = [storage.all(State).get(f'State.{escaped_id:s}')]
+        values = [storage.all(State).get('State.{:s}'.format(escaped_id))]
 
     if (values[0] == None):
         exist = 0
