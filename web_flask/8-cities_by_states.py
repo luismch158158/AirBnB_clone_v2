@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""Script to starts a Flask web application and use storage for fetching data from the storage engine"""
+"""Script to starts a Flask web application and use storage
+for fetching data from the storage engine"""
 from flask import Flask, render_template
 from markupsafe import escape
 from models.state import State
@@ -15,10 +16,12 @@ def cities_states():
     values_states = storage.all(State).values()
     return (render_template("8-cities_by_states.html", states=values_states))
 
+
 @app.teardown_appcontext
 def close_session(self):
     """This method remove the current SQLAlchemy Session"""
     storage.close()
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)
