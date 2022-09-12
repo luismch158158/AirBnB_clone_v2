@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """ Console Module """
 import cmd
-from contextlib import AsyncExitStack
 import sys
 import re
 from models.base_model import BaseModel
