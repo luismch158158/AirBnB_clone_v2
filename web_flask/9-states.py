@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""Script to starts a Flask web application and use storage for fetching data from the storage engine"""
+"""Script to starts a Flask web application and use storage
+for fetching data from the storage engine"""
 from flask import Flask, render_template
 from markupsafe import escape
 from models.state import State
@@ -18,19 +19,23 @@ def cities_states(id=''):
 
     if (escaped_id == ''):
         values = list(storage.all(State).values())
-        return (render_template('/9-states.html', states=values, exist=exist, id=escaped_id))
+        return (render_template('/9-states.html', states=values,
+                                exist=exist, id=escaped_id))
     else:
         values = [storage.all(State).get('State.{:s}'.format(escaped_id))]
 
-    if (values[0] == None):
+    if (values[0] is None):
         exist = 0
 
-    return (render_template('/9-states.html', states=values, exist=exist, id=escaped_id))
+    return (render_template('/9-states.html', states=values,
+                            exist=exist, id=escaped_id))
+
 
 @app.teardown_appcontext
 def close_session(self):
     """This method remove the current SQLAlchemy Session"""
     storage.close()
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)
